@@ -1,0 +1,9 @@
+resources:
+  - manifests/configmap.yaml
+  - manifests/deployment.yaml
+  - manifests/route.yaml
+  - manifests/svc-gateway.yaml
+  - manifests/rollout.yaml
+  - manifests/autoscaler.yaml
+  - db/statefulset.yaml
+  - db/service.yaml

@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: pingpong-rollout
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingpong
+  template:
+    metadata:
+      labels:
+        app: pingpong
+    spec:
+      containers:
+        - name: pingpong
+          image: kylmps/pingpong:5
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3001
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3001
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          env:
+            - name: DB_HOST
+              value: "postgres-svc"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "password"
+            - name: DB_NAME
+              value: "pingpong"
+          resources:
+            requests: 
+              cpu: "100m"
+              memory: "50Mi" 
+            limits:
+              cpu: "150m"
+              memory: "100Mi"
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+      - pause: {duration: 1m}
+      - analysis:
+          templates:
+          - templateName: cpu-usage-analysis
+          args:
+          - name: namespace
+            value: "{{.Release.Namespace}}" # This will be replaced by the actual namespace

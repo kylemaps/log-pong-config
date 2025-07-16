@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-output-dep
+  # namespace: app-exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output
+  template:
+    metadata:
+      labels:
+        app: log-output
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: log-output-config
+        - name: shared-file
+          emptyDir: {} # Shared volume for communication between containers
+      containers:
+        - name: log-output
+          image: kylmps/log-output:2
+          ports:
+            - containerPort: 3002
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3002
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3002
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: shared-file
+              mountPath: /usr/src/app/files
+            - name: config-volume
+              mountPath: /usr/src/app/data/information.txt
+              subPath: information.txt
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: MESSAGE
+        - name: log-output-writer
+          image: kylmps/log-output-writer:1.1
+          ports:
+            - containerPort: 3001
+          volumeMounts:
+            - name: shared-file
+              mountPath: /usr/src/app/files
+
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: log-output-svc
+#   namespace: app-exercises
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: log-output
+#   ports:
+#     - name: log-output-port
+#       port: 3002
+#       protocol: TCP
+#       targetPort: 3002

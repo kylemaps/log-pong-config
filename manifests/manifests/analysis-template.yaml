@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: cpu-usage-analysis
+spec:
+  args:
+  - name: namespace
+  metrics:
+  - name: cpu-usage-sum
+    # The interval between measurements
+    interval: 1m
+    # The number of measurements to take
+    count: 5
+    # The provider for the metric
+    provider:
+      prometheus:
+        # A placeholder address for the Prometheus server
+        address: http://prometheus-kube-prometheus-prometheus.prometheus.svc.cluster.local:9090
+        # The PromQL query to measure the sum of CPU usage rate for all containers in the namespace
+        query: |
+          sum(rate(container_cpu_usage_seconds_total{namespace='{{args.namespace}}', container!=''}[5m]))
+    # The condition for a successful measurement
+    successCondition: "result[0] <= 0.5"
+    # The condition for a failed measurement
+    failureCondition: "result[0] > 0.5"
+    # The number of consecutive failures required to fail the analysis
+    failureLimit: 1

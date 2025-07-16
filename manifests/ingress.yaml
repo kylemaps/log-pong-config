@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: log-output-ingress
+  namespace: app-exercises
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /log-output
+            pathType: Prefix
+            backend:  
+              service:
+                name: log-output-svc
+                port:
+                  number: 3002
+          - path: /ping
+            pathType: Prefix
+            backend:  
+              service:
+                name: pingpong-svc
+                port:
+                  number: 3001
+            # pathRewrite: 
+            #   pingpong: /pingpong
+
