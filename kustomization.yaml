@@ -4,6 +4,7 @@ resources:
   - manifests/route.yaml
   - manifests/svc-gateway.yaml
   - manifests/rollout.yaml
+  - manifests/analysis-template.yaml
   - manifests/autoscaler.yaml
   - manifests/db/statefulset.yaml
   - manifests/db/service.yaml
