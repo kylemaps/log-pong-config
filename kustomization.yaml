@@ -5,5 +5,5 @@ resources:
   - manifests/svc-gateway.yaml
   - manifests/rollout.yaml
   - manifests/autoscaler.yaml
-  - db/statefulset.yaml
-  - db/service.yaml
+  - manifests/db/statefulset.yaml
+  - manifests/db/service.yaml
