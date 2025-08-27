@@ -1,3 +1,5 @@
+namespace: log-pong
+
 resources:
   - manifests/configmap.yaml
   - manifests/deployment.yaml

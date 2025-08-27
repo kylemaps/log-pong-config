@@ -4,7 +4,8 @@ metadata:
   name: app-route
 spec:
   parentRefs:
-    - name: my-gateway
+    # - name: my-gateway # Old GKE gateway
+    - name: my-local-gateway # K3d local gateway
   rules:
     - matches:
         - path:
