@@ -1,20 +1,23 @@
 namespace: log-pong
 
 resources:
-  - manifests/configmap.yaml
-  - manifests/deployment.yaml
-  - manifests/route.yaml
-  - manifests/svc-gateway.yaml
-  - manifests/rollout.yaml
-  - manifests/analysis-template.yaml
-  - manifests/autoscaler.yaml
-  - manifests/db/statefulset.yaml
-  - manifests/db/service.yaml
+- manifests/configmap.yaml
+- manifests/deployment.yaml
+- manifests/route.yaml
+- manifests/svc-gateway.yaml
+- manifests/rollout.yaml
+- manifests/analysis-template.yaml
+- manifests/autoscaler.yaml
+- manifests/db/statefulset.yaml
+- manifests/db/service.yaml
 
 images:
-  - name: kylmps/pingpong
-    newTag: "latest"           # placeholder, will be replaced in CI
-  - name: kylmps/log-output
-    newTag: "latest"           # placeholder, will be replaced in CI
-  - name: kylmps/log-output-writer
-    newTag: "latest"           # placeholder, will be replaced in CI
+- name: kylmps/log-output
+  newTag: latest
+- name: kylmps/log-output-writer
+  newTag: latest
+- name: kylmps/pingpong
+  newName: kylmps/pingpong
+  newTag: b00a41ae418382488700361f4bdd75f2185d3503
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
