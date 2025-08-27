@@ -21,7 +21,7 @@ spec:
           emptyDir: {} # Shared volume for communication between containers
       containers:
         - name: log-output
-          image: kylmps/log-output:2
+          image: kylmps/log-output #:2 current tag, will be replaced in CI
           ports:
             - containerPort: 3002
           readinessProbe:
@@ -49,7 +49,7 @@ spec:
                   name: log-output-config
                   key: MESSAGE
         - name: log-output-writer
-          image: kylmps/log-output-writer:1.1
+          image: kylmps/log-output-writer #:1.1 current tag, will be replaced in CI
           ports:
             - containerPort: 3001
           volumeMounts:

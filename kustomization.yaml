@@ -8,3 +8,11 @@ resources:
   - manifests/autoscaler.yaml
   - manifests/db/statefulset.yaml
   - manifests/db/service.yaml
+
+images:
+  - name: kylmps/pingpong
+    newTag: "latest"           # placeholder, will be replaced in CI
+  - name: kylmps/log-output
+    newTag: "latest"           # placeholder, will be replaced in CI
+  - name: kylmps/log-output-writer
+    newTag: "latest"           # placeholder, will be replaced in CI
