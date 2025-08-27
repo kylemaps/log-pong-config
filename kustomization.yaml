@@ -1,10 +1,10 @@
 namespace: log-pong
 
+# - manifests/route.yaml # Using Ingress instead of Gateway API for k3d Traefik compatibility
 resources:
 - manifests/configmap.yaml
 - manifests/deployment.yaml
-# - manifests/route.yaml # Using Ingress instead of Gateway API for k3d Traefik compatibility
-- manifests/ingress.yaml # Standard Ingress resource
+- manifests/ingress.yaml
 - manifests/svc-gateway.yaml
 - manifests/rollout.yaml
 - manifests/analysis-template.yaml
@@ -21,6 +21,6 @@ images:
   newTag: fae492143b31f008bf5db7294c08a1f187174164
 - name: kylmps/pingpong
   newName: kylmps/pingpong
-  newTag: b00a41ae418382488700361f4bdd75f2185d3503
+  newTag: 4a8fbefff7a93d31a7251b20b503442e9d3db0bf
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
