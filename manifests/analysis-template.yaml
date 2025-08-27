@@ -14,8 +14,8 @@ spec:
     # The provider for the metric
     provider:
       prometheus:
-        # A placeholder address for the Prometheus server
-        address: http://prometheus-kube-prometheus-prometheus.prometheus.svc.cluster.local:9090
+        # Address for the Prometheus server
+        address: http://kube-prometheus-stack-1756-prometheus.prometheus.svc.cluster.local:9090
         # The PromQL query to measure the sum of CPU usage rate for all containers in the namespace
         query: |
           sum(rate(container_cpu_usage_seconds_total{namespace='{{args.namespace}}', container!=''}[5m]))
