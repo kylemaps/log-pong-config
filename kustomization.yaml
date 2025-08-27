@@ -13,9 +13,11 @@ resources:
 
 images:
 - name: kylmps/log-output
-  newTag: latest
+  newName: kylmps/log-output
+  newTag: fae492143b31f008bf5db7294c08a1f187174164
 - name: kylmps/log-output-writer
-  newTag: latest
+  newName: kylmps/log-output-writer
+  newTag: fae492143b31f008bf5db7294c08a1f187174164
 - name: kylmps/pingpong
   newName: kylmps/pingpong
   newTag: b00a41ae418382488700361f4bdd75f2185d3503
