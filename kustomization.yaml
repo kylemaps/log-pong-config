@@ -3,7 +3,8 @@ namespace: log-pong
 resources:
 - manifests/configmap.yaml
 - manifests/deployment.yaml
-- manifests/route.yaml
+# - manifests/route.yaml # Using Ingress instead of Gateway API for k3d Traefik compatibility
+- manifests/ingress.yaml # Standard Ingress resource
 - manifests/svc-gateway.yaml
 - manifests/rollout.yaml
 - manifests/analysis-template.yaml
